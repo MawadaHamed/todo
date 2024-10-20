@@ -1,6 +1,7 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:untitled1/models/task_model.dart';
 import 'package:untitled1/widgets/default_elevated-button.dart';
 import 'package:untitled1/widgets/default_text_form_field.dart';
 
@@ -88,6 +89,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     );
   }
   void addTask(){
-
+    TaskModel task = TaskModel(
+        title: titleController.text,
+        date: selectedDate,
+        description: descriptionController.text,
+    );
   }
 }
