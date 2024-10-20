@@ -42,7 +42,13 @@ class AppTheme{
         fontWeight: FontWeight.w400,
         color: black
       )
-    )
+    ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppTheme.primary,
+          shape: BeveledRectangleBorder(),
+        )
+      )
   );
   static ThemeData darkTheme = ThemeData();
 }
