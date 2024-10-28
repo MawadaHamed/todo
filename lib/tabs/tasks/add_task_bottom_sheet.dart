@@ -1,6 +1,7 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:untitled1/firebase_function.dart';
 import 'package:untitled1/models/task_model.dart';
 import 'package:untitled1/widgets/default_elevated-button.dart';
 import 'package:untitled1/widgets/default_text_form_field.dart';
@@ -94,5 +95,15 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         date: selectedDate,
         description: descriptionController.text,
     );
+    FirebaseFunctions.addTask(task).timeout(
+      Duration(microseconds: 100),
+           onTimeout: () {
+              Navigator.of(context).pop();
+            },
+    )
+        .catchError(
+      (error){
+
+    });
   }
 }
