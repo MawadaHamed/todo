@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:untitled1/app_theme.dart';
+import 'package:untitled1/models/task_model.dart';
+
 
 class TaskItem extends StatelessWidget {
+
+  TaskItem(this.task);
+  TaskModel task;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +29,11 @@ class TaskItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('play ball',
+              Text(task.title,
               style: textTheme.titleMedium ?.copyWith(color: AppTheme.primary),
               ),
               SizedBox(height: 4,),
-              Text('description',
+              Text(task.description,
                 style: textTheme.titleSmall,
               ),
             ],
