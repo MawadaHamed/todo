@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
          onPressed: () => showModalBottomSheet(
              context: context,
+             isScrollControlled: true,
              builder: (_) => AddTaskBottomSheet()
          ),
         child: Icon(Icons.add,
