@@ -12,6 +12,10 @@ class AppTheme{
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: primary,
+    appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        centerTitle: true
+    ),
     scaffoldBackgroundColor: BackgroundLight,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
@@ -47,7 +51,12 @@ class AppTheme{
         style: ElevatedButton.styleFrom(
           backgroundColor: AppTheme.primary,
         )
-      )
+      ),
+      textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+      foregroundColor: primary
+  )
+  )
   );
   static ThemeData darkTheme = ThemeData();
 }
