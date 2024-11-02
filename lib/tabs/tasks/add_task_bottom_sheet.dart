@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/app_theme.dart';
+import 'package:untitled1/auth/user_provider.dart';
 import 'package:untitled1/firebase_function.dart';
 import 'package:untitled1/models/task_model.dart';
 import 'package:untitled1/tabs/tasks/task_provider.dart';
@@ -29,10 +30,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
         height: MediaQuery.sizeOf(context).height * .5,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: AppTheme.white,
-          borderRadius: BorderRadius.horizontal(
+          borderRadius: const BorderRadius.horizontal(
               left: Radius.circular(15),
               right: Radius.circular(15)
           )
@@ -55,7 +56,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   return null;
                 },
               ),
-              SizedBox(height: 16,),
+              const SizedBox(height: 16,),
               DefaultTextFormField(
                 controller: descriptionController,
                 hintText: 'Enter task description',
@@ -109,11 +110,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         date: selectedDate,
         description: descriptionController.text,
     );
-    FirebaseFunctions.addTask(task).timeout(
-      Duration(microseconds: 100),
-           onTimeout: () {
+    String userId = Provider.of<UserProvider>(context,listen: false).currentUser!.id;
+    FirebaseFunctions.addTask(task,userId).then((_){
               Navigator.of(context).pop();
-              Provider.of<TaskProvider>(context, listen: false).getTasks();
+              Provider.of<TaskProvider>(context, listen: false).getTasks(userId);
               Fluttertoast.showToast(
                 msg: "Task added successfully",
                 toastLength: Toast.LENGTH_SHORT,

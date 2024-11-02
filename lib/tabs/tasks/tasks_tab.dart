@@ -3,9 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/app_theme.dart';
-import 'package:untitled1/firebase_function.dart';
+import 'package:untitled1/auth/user_provider.dart';
 import 'package:untitled1/tabs/tasks/task_item.dart';
 import 'package:untitled1/tabs/tasks/task_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 
@@ -21,8 +22,9 @@ class _TaskTabState extends State<TaskTab> {
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     TaskProvider taskProvider = Provider.of<TaskProvider>(context);
+    String userId = Provider.of<UserProvider>(context,listen: false).currentUser!.id;
    if(shouldGetTasks){
-     taskProvider.getTasks();
+     taskProvider.getTasks(userId);
       shouldGetTasks = false;
     }
 
@@ -39,7 +41,7 @@ class _TaskTabState extends State<TaskTab> {
               start: 20,
               child: SafeArea(
                 child: Text(
-                  'ToDo List',
+                  AppLocalizations.of(context)!.todoList,
                 style: Theme.of(context).textTheme.titleMedium
                   ?.copyWith(color: AppTheme.white),
                 ),
@@ -52,7 +54,7 @@ class _TaskTabState extends State<TaskTab> {
                 focusDate: taskProvider.selectedDate,
                 lastDate:DateTime.now().add(Duration(days: 365)),
                 onDateChange: (selectedDate){
-                  taskProvider.getSelectedDateTasks(selectedDate);
+                  taskProvider.getSelectedDateTasks(selectedDate,userId);
                 },
                 showTimelineHeader: false,
                 dayProps: EasyDayProps(

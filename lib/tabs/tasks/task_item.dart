@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/app_theme.dart';
+import 'package:untitled1/auth/user_provider.dart';
 import 'package:untitled1/firebase_function.dart';
 import 'package:untitled1/models/task_model.dart';
 import 'package:untitled1/tabs/tasks/task_provider.dart';
@@ -26,11 +28,17 @@ class TaskItem extends StatelessWidget {
           children:  [
             SlidableAction(
               onPressed: (_) {
-                FirebaseFunctions.deleteTaskFromFirestore(task.id).timeout(
-                    Duration(microseconds : 100),
-                    onTimeout: (){
-                      Provider.of<TaskProvider>(context, listen: false).getTasks();
-                    }).catchError((_){},
+                String userId = Provider.of<UserProvider>(context,listen: false).currentUser!.id;
+                FirebaseFunctions.deleteTaskFromFirestore(task.id,userId).then((_){
+                      Provider.of<TaskProvider>(context, listen: false).getTasks(userId);
+                    }).catchError((_){
+                  Fluttertoast.showToast(
+                    msg: "Task added successfully",
+                    toastLength: Toast.LENGTH_SHORT,
+                    timeInSecForIosWeb: 5,
+                    backgroundColor: AppTheme.red,
+                  );
+                },
                 );
               },
               backgroundColor: AppTheme.red,

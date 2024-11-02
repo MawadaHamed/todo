@@ -6,8 +6,8 @@ class TaskProvider with ChangeNotifier{
   List<TaskModel> tasks = [];
   DateTime selectedDate = DateTime.now();
 
-  Future<void> getTasks() async{
-   List<TaskModel> allTasks = await FirebaseFunctions.getAllTask();
+  Future<void> getTasks(String userId) async{
+   List<TaskModel> allTasks = await FirebaseFunctions.getAllTask(userId);
     tasks = allTasks.where(
             (task) =>
                 task.date.year == selectedDate.year &&
@@ -16,8 +16,13 @@ class TaskProvider with ChangeNotifier{
     ).toList();
     notifyListeners();
   }
-  void getSelectedDateTasks(DateTime date){
+  void getSelectedDateTasks(DateTime date,String userId){
     selectedDate  = date;
-    getTasks();
+    getTasks(userId);
+  }
+
+  void resetData(){
+    tasks = [];
+    selectedDate = DateTime.now();
   }
 }
