@@ -20,7 +20,7 @@ class FirebaseFunctions {
       toFirestore: (taskModel,_) => taskModel.toJson(),
   );
 
-  static Future<void> addTask(TaskModel task, String userId){
+  static Future<void> addTask(TaskModel task, String userId,){
    CollectionReference<TaskModel> tasksCollection =  getTasksCollection(userId);
    DocumentReference<TaskModel> doc = tasksCollection.doc();
    task.id = doc.id;
@@ -37,6 +37,23 @@ class FirebaseFunctions {
     CollectionReference<TaskModel> tasksCollection =  getTasksCollection(userId);
     return tasksCollection.doc(taskId).delete();
   }
+
+  static Future<void> updateTaskFromFirestore(
+     String taskId, String userId,newtitle, String newdescription ) async{
+    CollectionReference<TaskModel> tasksCollection =  getTasksCollection(userId);
+    return  tasksCollection.doc(taskId).update({
+      'title': newtitle,
+      'description':newdescription,
+    });
+  }
+
+  static Future<void> UpdateTaskStateFromFirestore(String taskId,String userId, bool isDone) async{
+    CollectionReference<TaskModel> tasksCollection =  getTasksCollection(userId);
+    return await tasksCollection.doc(taskId).update({
+      'isDone' : isDone
+    });
+  }
+
 
   static Future<UserModel> register({
     required String name,

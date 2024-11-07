@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/app_theme.dart';
 import 'package:untitled1/auth/register_screen.dart';
 import 'package:untitled1/auth/user_provider.dart';
 import 'package:untitled1/firebase_function.dart';
@@ -24,7 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar:
+      AppBar(
+        elevation: 0,
         title: Text(
           'Login'
         ),

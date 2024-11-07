@@ -58,5 +58,52 @@ class AppTheme{
   )
   )
   );
-  static ThemeData darkTheme = ThemeData();
+  static ThemeData darkTheme = ThemeData(
+      primaryColor: primary,
+      appBarTheme: AppBarTheme(
+          backgroundColor: Colors.transparent,
+          centerTitle: true
+      ),
+      scaffoldBackgroundColor: BackgroundDark,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor:BackgroundDark,
+        selectedItemColor: primary,
+        unselectedItemColor: gray,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primary,
+        foregroundColor: white,
+        shape: CircleBorder(
+          side: BorderSide(
+              width: 4,
+              color: white
+          ),
+        ),
+      ),
+      textTheme: TextTheme(
+          titleMedium: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: white
+          ),
+          titleSmall: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: white
+          )
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppTheme.primary,
+          )
+      ),
+      textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+              foregroundColor: primary
+          )
+      )
+  );
 }
